@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\application;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ApplicationController extends Controller
 {
@@ -13,6 +14,11 @@ class ApplicationController extends Controller
     public function index()
     {
         //
+        $applications = Application::where('user_id', auth()->id())->latest()->get();
+
+        return Inertia::render('Applications/Index', [
+            'applications' => $applications
+        ]);
     }
 
     /**
