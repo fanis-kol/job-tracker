@@ -3,14 +3,17 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+Use App\Http\Controllers\ApplicationController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+        'canRegister' => Route::has('register')
     ]);
+});
+
+Route::middleware(['auth', 'verified'])->group(function (){
+    Route::resource('applications', ApplicationController::class);
 });
 
 Route::middleware([
