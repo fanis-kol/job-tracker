@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\application;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Auth;
 
 class ApplicationController extends Controller
 {
@@ -27,6 +28,12 @@ class ApplicationController extends Controller
     public function create()
     {
         //
+
+        $user = Auth::user();
+
+        return Inertia::render('Applications/NewApplication',[
+            'user' => $user
+        ]);
     }
 
     /**
@@ -35,6 +42,9 @@ class ApplicationController extends Controller
     public function store(Request $request)
     {
         //
+        $data = Request(data);
+
+        return $data;
     }
 
     /**
